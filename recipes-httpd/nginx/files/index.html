@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Kiosk</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #12345a;
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 35px auto;
+            padding: 24px;
+        }
+
+        .panel {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px #00000012;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 24px 0 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            min-height: 64px;
+            padding: 16px;
+            margin-top: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #1464c0;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button.secondary {
+            background: #e2e8f0;
+            color: #12345a;
+        }
+
+        button:hover {
+            filter: brightness(0.94);
+        }
+
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid #f59e0b;
+            outline-offset: 3px;
+        }
+
+        #message {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 8px;
+            background: #eff6ff;
+            text-align: center;
+            display: none;
+        }
+
+        footer {
+            padding: 24px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                margin: 16px auto;
+                padding: 12px;
+            }
+
+            .panel {
+                padding: 22px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Parking Services</h1>
+        <p>Welcome to the self-service kiosk</p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>How can we help you?</h2>
+
+            <label for="ticketNumber">
+                Enter your parking ticket number
+            </label>
+
+            <input
+                type="text"
+                id="ticketNumber"
+                placeholder="e.g. PK-123456"
+                autocomplete="off"
+                maxlength="30"
+            >
+
+            <button onclick="lookupTicket()">
+                Find My Ticket
+            </button>
+
+            <button class="secondary" onclick="showMessage(
+                'Parking payment workflow selected. Please follow the payment terminal instructions.'
+            )">
+                Pay for Parking
+            </button>
+
+            <button class="secondary" onclick="showMessage(
+                'Please contact the parking office for assistance.'
+            )">
+                Help & Information
+            </button>
+
+            <div id="message" role="status" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <footer>
+        Parking Services &bull; Self-Service Kiosk
+    </footer>
+
+    <script>
+        function showMessage(text) {
+            const message = document.getElementById("message");
+            message.textContent = text;
+            message.style.display = "block";
+        }
+
+        function lookupTicket() {
+            const ticket = document
+                .getElementById("ticketNumber")
+                .value.trim();
+
+            if (!ticket) {
+                showMessage("Please enter your ticket number.");
+                document.getElementById("ticketNumber").focus();
+                return;
+            }
+
+            // Replace this demo message with a backend API request.
+            showMessage(
+                "Ticket number " + ticket +
+                " entered. Ticket lookup is not connected yet."
+            );
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[Unit]
+Description=Chromium Kiosk Mode Application Launcher
+After=weston.service nginx.service
+Wants=weston.service nginx.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment=XDG_RUNTIME_DIR=/run/user/0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=HOME=/root
+Environment=PATH=/usr/bin:/bin:/usr/sbin:/sbin
+ExecStart=/usr/bin/kiosk-start.sh
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+
